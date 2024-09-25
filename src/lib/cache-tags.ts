@@ -1,6 +1,6 @@
 import type * as Next from 'next'
 import Router from 'next/router'
-import { resolveHref } from 'next/dist/shared/lib/router/router'
+import { resolveHref } from 'next/dist/client/resolve-href'
 
 import { get } from './stack'
 import type { CacheTagsRegistry } from './registry/type'
@@ -103,8 +103,7 @@ class CacheTags<R extends CacheTagsRegistry> {
     if (!pathname) {
       throw new Error('Could not resolve page pathname')
     }
-
-    return resolveHref(Router, { pathname, query: ctx.params }, true)[1]
+    return resolveHref(Router, { href: pathname, query: ctx.params })[1]
   }
 
   /**
